@@ -1,2 +1,3 @@
-## The Odin Project: Rock Paper Scissors (Console)
-https://themightypillow.github.io/rock-paper-scissors/
+## The Odin Project: Rock Paper Scissors
+
+* Plays 5 rounds of a console based rock paper scissors game
