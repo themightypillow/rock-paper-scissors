@@ -49,7 +49,8 @@
     function game() {
       let score = [0, 0];
       for(let i = 0; i < 5; i++) {
-        let result = playRound(prompt(`Round ${i + 1} : Enter Your Move`), computerPlay());
+        const playerInput = prompt(`Round ${i + 1} : Enter Your Move`);
+        let result = playRound(playerInput ? playerInput : "", computerPlay());
         switch(result[4]) {
           case "W":
             score[0]++;
