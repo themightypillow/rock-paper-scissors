@@ -11,7 +11,7 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection = computerPlay()) {
-  if(game.round > 5) return; // end of game
+  if(game.round > 5) return; // game is over
 
   if(playerSelection === computerSelection) {
     game.result = "You Tie!";
@@ -59,11 +59,38 @@ const playerScoreLabel = document.querySelector("#player-score");
 const cpuScoreLabel = document.querySelector("#cpu-score");
 
 function showRoundResults() {
-  if(game.round > 5) return; // end of game
-
   roundDiv.textContent = `Round ${game.round}: ${game.result}`;
   playerScoreLabel.textContent = game.playerScore;
   cpuScoreLabel.textContent = game.cpuScore;
+  if(game.round >= 5) endGame();
+}
+
+function endGame() {
+  const player = playerScoreLabel.parentElement;
+  const cpu = cpuScoreLabel.parentElement;
+
+  const winner = document.createElement("p");
+  winner.style.fontSize = "25px";
+  winner.style.fontWeight = "bold";
+
+  if(game.playerScore > game.cpuScore) {
+    player.style.color = "green";
+    player.style.fontWeight = "bold";
+    winner.textContent = "You Win!";
+  }
+  else if(game.playerScore < game.cpuScore) {
+    cpu.style.color = "green";
+    cpu.style.fontWeight = "bold";
+    winner.textContent = "Computer Wins!";
+  }
+  else {
+    player.style.color = "gold";
+    player.style.fontWeight = "bold";
+    cpu.style.color = "gold";
+    cpu.style.fontWeight = "bold";
+    winner.textContent = "It's a Tie!";
+  }
+  player.parentElement.appendChild(winner);
 }
 
 movesBtns.forEach((move) => {
