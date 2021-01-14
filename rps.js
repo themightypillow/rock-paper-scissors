@@ -1,58 +1,72 @@
+const game = {
+  playerScore: 0,
+  cpuScore: 0,
+  round: 1,
+  result: ""
+};
+
 function computerPlay() {
   let random = Math.floor(Math.random() * 3);
   return ["rock", "paper", "scissors"][random];
 }
 
 function playRound(playerSelection, computerSelection = computerPlay()) {
-  let playerMove = playerSelection.toLowerCase();
-  if(playerMove === computerSelection) {
-    return "You Tie!";
+  if(game.round > 5) return; // end of game
+
+  if(playerSelection === computerSelection) {
+    game.result = "You Tie!";
   }
-  else if(playerMove === "rock") {
+  else if(playerSelection === "rock") {
     if(computerSelection === "scissors") {
-      return "You Win! Rock beats Scissors";
+      game.result = "You Win! Rock beats Scissors";
+      game.playerScore++;
     }
     else {
-      return "You Lose! Paper beats Rock";
+      game.result = "You Lose! Paper beats Rock";
+      game.cpuScore++;
     }
   }
-  else if(playerMove === "paper") {
+  else if(playerSelection === "paper") {
     if(computerSelection === "rock") {
-      return "You Win! Paper beats Rock";
+      game.result = "You Win! Paper beats Rock";
+      game.playerScore++;
     }
     else {
-      return "You Lose! Scissors beats Paper";
+      game.result = "You Lose! Scissors beats Paper";
+      game.cpuScore++;
     }
   }
-  else if(playerMove === "scissors") {
+  else if(playerSelection === "scissors") {
     if(computerSelection === "paper") {
-      return "You Win! Scissors beats Paper";
+      game.result = "You Win! Scissors beats Paper";
+      game.playerScore++;
     }
     else {
-      return "You Lose! Rock beats Scissors";
+      game.result = "You Lose! Rock beats Scissors";
+      game.cpuScore++;
     }
   }
   else {
-    return "You Lose! You did not input a valid move";
+    game.result = "You Lose! You did not input a valid move";
   }
+  showRoundResults();
+  game.round++;
 }
 
-// function game() {
-//   let score = [0, 0];
-//   for(let i = 0; i < 5; i++) {
-//     let result = playRound(prompt(`Round ${i + 1} : Enter Your Move`), computerPlay());
-//     switch(result[4]) {
-//       case "W":
-//         score[0]++;
-//         break;
-//       case "L":
-//         score[1]++;
-//         break;
-//     }
-//     console.log(`Round ${i + 1}: ${result}`);
-//   }
-//   console.log(`Final Score! You: ${score[0]}, Computer ${score[1]}`);
-//   console.log(score[0] > score[1] ? "You beat the Computer!" : "You lost to the Computer!");
-// }
+const movesBtns = document.querySelectorAll(".move");
+const roundDiv = document.querySelector("#round");
+const playerScoreLabel = document.querySelector("#player-score");
+const cpuScoreLabel = document.querySelector("#cpu-score");
 
-// game();
+function showRoundResults() {
+  if(game.round > 5) return; // end of game
+
+  roundDiv.textContent = `Round ${game.round}: ${game.result}`;
+  playerScoreLabel.textContent = game.playerScore;
+  cpuScoreLabel.textContent = game.cpuScore;
+}
+
+movesBtns.forEach((move) => {
+  move.addEventListener("click", (e) => playRound(e.target.id));
+});
+

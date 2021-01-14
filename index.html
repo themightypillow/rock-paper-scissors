@@ -6,9 +6,14 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <button id="rock">🪨</button>
-  <button id="paper">📄</button>
-  <button id="scissors">✄</button>
+  <button id="rock" class="move">🪨</button>
+  <button id="paper" class="move">📄</button>
+  <button id="scissors" class="move">✄</button>
+  <div id="round">Make a move</div>
+  <div>Score 
+    <div>You: <span id="player-score">0</span></div>
+    <div>Computer: <span id="cpu-score">0</span></div>
+  </div>
   <script src="rps.js"></script>
 </body>
 </html>
